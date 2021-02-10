@@ -1,0 +1,87 @@
+﻿<! DOCTYPE html>
+	<html lang="pt-br">
+
+		<head>
+			<title>	Aula02 Curso12: Arrow Functions</title>
+				<meta charset="utf-8">
+		</head>
+
+		<body>
+
+		<script>
+
+		// function soma(parametros ou argumentos da função) {  }
+		var a = 2;
+		var b = 3;
+		function soma(a,b)
+				{	console.log("Função tradicional do Javascript")
+					console.log("Exibe o valor de a = " + a)
+					console.log("Exibe o valor de b = " + b)
+					console.log("Soma de a + b = " + (a+b))
+				}
+
+		console.log("Chamada da função soma tradicional e sua execução: soma(a,b)")
+		soma(a,b);
+
+		function escrevetexto(texto)
+				{	console.log(texto)	}
+		console.log("Chamada da função escrevetexto tradicional e sua execução")
+		escrevetexto('vamos aprender arrow functions');
+
+		// funções anônimas atribuidas a uma variável
+		var soma = function (a,b)
+				{	console.log("Função anônima atribuida a uma variável")
+					console.log("Exibe o valor de a = " + a)
+					console.log("Exibe o valor de b = " + b)
+					console.log("Soma de a + b = " + (a+b))
+				}
+
+		console.log("Chamada da função anônima soma e sua execução: soma(a,b)")
+		soma(a,b);
+
+		var escrevetexto = function (texto)
+				{	console.log(texto)	}
+
+		console.log("Chamada da função anônima escrevetexto e sua execução")
+		escrevetexto('vamos aprender arrow functions');
+
+		var soma = function (a,b)
+				{	return a+b	}
+
+		console.log("Chamada da variável soma declarada como função: function(a,b)")
+		console.log(soma(a,b));
+
+		console.log("Com o ES6 ou Ecma6 surgiram novas formas de escrever função")
+
+		console.log("Inicio da Aula sobre Arrow Function")
+
+		console.log("Na declaração de arrow functions pode-se omitir a palavra function")
+
+		var soma = (a,b) => a + b;
+		console.log("Chamada da arrow function soma declarada da seguinte maneira: ")
+		console.log("var soma = (a,b) => a + b; console.log(soma(a,b));");
+		console.log(soma(a,b));
+
+		console.log("Na chamada de arrow functions onde se façam statements deve-se abrir chaves")
+		var par = (a) => { if (a%2 == 0) { console.log(" o número a = " + a + " é par") } };
+		console.log("Chamada da arrow function par declarada da seguinte maneira: ")
+		console.log("var par = (a) => { if (a%2 == 0) { console.log('o número a =' + a + 'é par') } };");
+		console.log(par(a));
+
+		console.log("Na chamada de arrow functions onde se façam statements deve-se abrir chaves")
+		var impar = (b) => { if (b%2 != 0) { console.log(" o número b = " + b + " é impar") } };
+		console.log("Chamada da arrow function impar declarada da seguinte maneira: ")
+		console.log("var impar = (b) => { if (b%2 != 0) { console.log('o número b =' + b + 'é impar') } };");
+		console.log(impar(b));
+
+		</script>
+
+			<h1> Curso12: Desenvolvimento avançado com JavaScript ES6 </h1>
+			<h2> Curso gratuito da DIO: Digital Innovation One </h2>
+			<h2>	Bootcamp: Avanade Angular Developer </h2>
+			<h3>	Aula02 / 17 : Arrow Functions
+			<p>	Concluí todo o estudo desta aula
+
+		</body>
+
+	</html>
