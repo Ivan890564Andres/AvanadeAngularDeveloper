@@ -1,0 +1,184 @@
+﻿<! DOCTYPE html>
+	<html lang="pt-br">
+
+		<head>
+			<title>	Aula03 Curso12: Default Function Arguments </title>
+				<meta charset="utf-8">
+		</head>
+
+		<body>
+
+		<script>
+/*
+var a = prompt("Entre com o valor da variável a : ");
+var b = prompt("Entre com o valor da variável b : ");
+
+function multiply(a,b)
+	{		return a*b		}
+
+produto = multiply(a,b);
+console.log("produto de "+ a + " x " + b + " = " + produto.toFixed(3));
+
+console.log("Inicia a abordagem da situação hipotética do possivel esquecimento da passagem de um dos dois parametros numa função com 2 parametros. Nesse caso a função retorna NAN = Not a Number");
+
+console.log("Exemplo do resultado de quando se esquece de passar o parâmetro b");
+var a = prompt("Entre com o valor da variável a : ");
+var b = prompt("Entre com o valor da variável b : ");
+
+function multiply(a,b)
+	{		return a*b		}
+
+produto = multiply(a);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+console.log("produto de "+ a + " x " + b + " = " + produto.toFixed(3));
+
+console.log("Exemplo de possivel solução para o esquecimento de passar o parâmetro b");
+console.log("Neste caso, a solução do programador é a linha de comando: b = b ou 1 ");
+console.log("Por isso o produto a*b será o valor de a pois o Javascript pegara o valor b=1 ");
+
+var a = prompt("Entre com o valor da variável a : ");
+var b = prompt("Entre com o valor da variável b : ");
+
+function multiply(a,b)
+	{		b = b || 1;
+			return a*b		}
+
+produto = multiply(a);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+console.log("produto de "+ a + " x " + b + " = " + produto.toFixed(3));
+
+console.log("Outra possivel solução para o esquecimento de passar o parâmetro b");
+console.log("Neste caso, a solução do programador é a validação de tipo ");
+console.log("usando a linha de comando b=typeof b === 'undefined' ? 1 : b ");
+// a llinha de comando de validação de tipo passa 1 se otipo for undefined ou passa b em caso contrario
+
+var a = prompt("Entre com o valor da variável a : ");
+var b = prompt("Entre com o valor da variável b : ");
+
+function multiply(a,b)
+	{		b=typeof b === 'undefined' ? 1 : b ;
+			return a*b		}
+
+produto = multiply(a);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+console.log("produto de "+ a + " x " + "nada" + " = " + produto.toFixed(3));
+
+produto = multiply(a,0);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+console.log("produto de "+ a + " x " + "0" + " = " + produto.toFixed(3));
+
+produto = multiply(a,b);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+console.log("produto de "+ a + " x " + "b" + " = " + produto.toFixed(3));
+
+console.log("Outra possivel solução para o esquecimento de passar o parâmetro b");
+console.log("Neste caso, a solução do programador é o uso do if para a validação de tipo ");
+console.log("usando a linha de comando if(typeof b === 'undefined') {b=1};  ");
+// a linha de comando de validação de tipo passa 1 se o tipo for undefined ou passa b em caso contrario
+
+var a = prompt("Entre com o valor da variável a : ");
+var b = prompt("Entre com o valor da variável b : ");
+
+function multiply(a,b)
+	{		if(typeof b === 'undefined') {b=1};
+			return a*b		}
+
+produto = multiply(a);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+console.log("produto de "+ a + " x " + "nada" + " = " + produto.toFixed(3) + "  // não passou parâmetro b");
+
+produto = multiply(a,0);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+console.log("produto de "+ a + " x " + "0" + " = " + produto.toFixed(3) + "  // passou 0 como parâmetro b");
+
+produto = multiply(a,b);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+console.log("produto de "+ a + " x " + "b" + " = " + produto.toFixed(3) + "  // 	passou o parametro b corretamente");
+
+console.log("Após o surgimento do Ecma 6, as soluções acima puderam ser descartadas");
+console.log("Agora é possível atribuir valores aos parâmetros diretamente na declaração da função");
+console.log("conforme o código: functiom multiply(a,b=1) {return a*b} ");
+
+var a = prompt("Entre com o valor da variável a : ");
+var b = prompt("Entre com o valor da variável b : ");
+
+function multiply(a,b=1)
+	{		return a*b		}
+
+	produto = multiply(a);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+	console.log("produto de "+ a + " x " + "nada" + " = " + produto.toFixed(3) + "  // não passou parâmetro b");
+
+	produto = multiply(a,0);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+	console.log("produto de "+ a + " x " + "0" + " = " + produto.toFixed(3) + "  // passou 0 como parâmetro b");
+
+	produto = multiply(a,b);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+	console.log("produto de "+ a + " x " + "b" + " = " + produto.toFixed(3) + "  // passou o parametro b corretamente");
+
+console.log("Além disso, agora no Ecma 6, é possivel predefinir a passagem dos 2 parametros");
+console.log("sendo possível atribuir valores aos 2 parâmetros diretamente e simultaneamente na declaração da função");
+console.log("conforme o código: functiom multiply(a=2,b=3) {return a*b} ");
+
+var a = prompt("Entre com o valor da variável a : ");
+var b = prompt("Entre com o valor da variável b : ");
+
+function multiply(a=2,b=3)
+	{		return a*b		}
+
+	console.log("valor de a = " + a + " valor de b = " + b + " // valores de a e b digitados no prompt do Browser");
+
+	produto = multiply(a);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+	console.log("produto de "+ a + " x " + "nada" + " = " + produto.toFixed(3) + "  // não passou parâmetro b");
+
+	produto = multiply(b);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+	console.log("produto de "+ "nada" + " x " + b + " = " + produto.toFixed(3) + "  // não passou parâmetro a");
+
+	produto = multiply(undefined, b);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+	console.log("produto de "+ "nada" + " x " + b + " = " + produto.toFixed(3) + "  // não passou parâmetro a");
+
+	produto = multiply(a,0);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+	console.log("produto de "+ a + " x " + "0" + " = " + produto.toFixed(3) + "  // passou 0 como parâmetro b");
+
+	produto = multiply(0,b);// o esquecimento da passagem do parametro a ocorre nesta linha de codigo
+	console.log("produto de "+ "0" + " x " + b + " = " + produto.toFixed(3) + "  // passou 0 como parâmetro a");
+
+	produto = multiply(a,b);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+	console.log("produto de "+ a + " x " + b + " = " + produto.toFixed(3) + "  // passou os parametros a e b corretamente");
+*/
+// Lazy Evaluation
+console.log("caso em que o 2º parametro será randomico quando o usuario deixe de passar esse parâmetro");
+function randomNumber() { console.log("gerando um numero aleatorio...")
+													return Math.random() * 10; };
+var a = prompt("Entre com o valor da variável a : ");
+var b = prompt("Entre com o valor da variável b : ");
+
+function multiply(a,b = randomNumber())	{		return a*b		}
+
+console.log("valor de a = " + a + " valor de b = " + b + " // valores de a e b digitados no prompt do Browser");
+
+produto = multiply(a);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+console.log("produto de "+ a + " x " + "nada" + " = " + produto.toFixed(3) + "  // não passou parâmetro b");
+
+produto = multiply(a);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+console.log("produto de "+ a + " x " + "nada" + " = " + produto.toFixed(3) + "  // não passou parâmetro b");
+
+produto = multiply(b);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+console.log("produto de "+ "nada" + " x " + b + " = " + produto.toFixed(3) + "  // não passou parâmetro a");
+
+produto = multiply(undefined, b);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+console.log("produto de "+ "nada" + " x " + b + " = " + produto.toFixed(3) + "  // não passou parâmetro a");
+
+produto = multiply(a,0);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+console.log("produto de "+ a + " x " + "0" + " = " + produto.toFixed(3) + "  // passou 0 como parâmetro b");
+
+produto = multiply(0,b);// o esquecimento da passagem do parametro a ocorre nesta linha de codigo
+console.log("produto de "+ "0" + " x " + b + " = " + produto.toFixed(3) + "  // passou 0 como parâmetro a");
+
+produto = multiply(a,b);// o esquecimento da passagem do parametro b ocorre nesta linha de codigo
+console.log("produto de "+ a + " x " + b + " = " + produto.toFixed(3) + "  // passou os parametros a e b corretamente");
+
+		</script>
+
+			<h1> Curso12: Desenvolvimento avançado com JavaScript ES6 </h1>
+			<h2> Curso gratuito da DIO: Digital Innovation One </h2>
+			<h2>	Bootcamp: Avanade Angular Developer </h2>
+			<h3>	Aula 03 / 17 : Default Function Arguments
+			<p>	Concluí todo o primeiro estudo desta Aula03
+			<p>	Vou assistir de novo esta aula03 pois é muita abstrata e inútil na prática
+					e vou tentar obter algum conhecimento prático no meio dessa abstração
+
+
+		</body>
+
+	</html>
