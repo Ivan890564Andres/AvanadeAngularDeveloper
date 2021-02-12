@@ -1,0 +1,78 @@
+﻿<! DOCTYPE html>
+	<html lang="pt-br">
+
+		<head>
+			<title>	Aula04 Curso12: Enhanced Object Literals </title>
+				<meta charset="utf-8">
+		</head>
+
+		<body>
+
+		<script>
+/*
+console.log("Maneira classica de escrever objetos literais é a seguinte:");
+console.log(" var obj = { prop1: 'Digital Innovation One'};")
+var obj = { prop1: 'Digital Innovation One'};
+console.log(obj);
+
+console.log("Outra maneira seria a seguinte:");
+console.log(" var prop1 = 'Digital Innovation One'; var obj = { prop1: prop1 };")
+var prop1 = 'Digital Innovation One';
+var obj = { prop1: prop1 };
+console.log(obj);
+
+console.log("Com o surgimento do Ecma6 foi simplificado conforme abaixo: ");
+console.log(" var prop1 = 'Digital Innovation One'; var obj = { prop1 };")
+var prop1 = 'Digital Innovation One';
+var obj = { prop1 };
+console.log(obj);
+
+console.log("No Ecma6 pode-se chamar funcao atrave´s de um método, conforme abaixo: ");
+console.log(" function method1() { console.log('metodo chamado'); } var obj = {method1}; ")
+function method1() { console.log("metodo chamado"); };
+var obj = {method1};
+console.log(obj);
+obj.method1();
+
+console.log("Outra maneira seria a seguinte: ");
+console.log("var obj = {soma: function soma(a,b) { return a+b; } } ; ");
+var obj = {soma: function soma(a,b) { return a+b; } };
+console.log(obj.soma(2,6));
+
+console.log("Outra maneira seria a seguinte: ");
+console.log("var obj = {soma(a,b) { return a+b; } } ; ");
+var obj = {soma(a,b) { return a+b; } };
+console.log(obj.soma(2,6));
+
+console.log("Outra caso comum seria o seguinte: ");
+console.log("var propName = 'teste' ; var obj = { }; obj[propName] ='Valor próprio'; ");
+var propName = 'teste' ;
+var obj = { };
+obj[propName] ='Valor próprio';
+console.log(obj);
+*/
+var obj = {
+  sleep: function() {
+    setTimeout(() => {
+      console.log(this);
+    }, 1000);
+  }
+}
+
+obj.sleep();
+
+
+
+
+		</script>
+
+			<h1> Curso12: Desenvolvimento avançado com JavaScript ES6 </h1>
+			<h2> Curso gratuito da DIO: Digital Innovation One </h2>
+			<h2>	Bootcamp: Avanade Angular Developer </h2>
+			<h3>	Aula 04 / 17 : Enhanced Object Literals
+			<p>	Conclui todo o estudo desta aula
+
+
+		</body>
+
+	</html>
