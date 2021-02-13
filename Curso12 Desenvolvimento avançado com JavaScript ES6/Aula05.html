@@ -1,0 +1,134 @@
+﻿<! DOCTYPE html>
+	<html lang="pt-br">
+
+		<head>
+			<title>	Aula05 Curso12: Conheça Rest e Spread Operator </title>
+				<meta charset="utf-8">
+		</head>
+
+		<body>
+
+		<script>
+
+console.log("Exemplo de soma de vários valores não somente a e b antes do Ecma6 ");
+console.log(" usando a função soma percorrendo a lista de argumentos");
+
+function soma(a,b)
+	{			var value = 0;
+		  	for(var i=0; i < arguments.length; i++)
+					{		value += arguments[i];	}
+				return value;}
+console.log (soma(5,6,7,8,9));
+
+console.log("Com o Ecma6 surgiu o Rest operator o qual é simbolizado por 3 pontos: ...");
+
+function soma(...args)
+	{			console.log(args);
+				console.log(arguments); };
+console.log (soma(5,6,7,8,9));
+
+function soma(...args)
+	{			return args.reduce((acc,value) => acc + value, 0); };
+console.log (soma(5,6,7,8,9));
+
+console.log("Rest operator com arrow function");
+const soma = (a,b,...rest) => { console.log(a,b,rest);};
+console.log (soma(5,6,7,8,9));
+
+console.log("o exemplo abaixo deu certo ");
+const multiply = (...args) => args.reduce((acc,value) => acc*value, 1)
+const soma = (...rest) => { return multiply.apply(undefined, rest); };
+console.log (soma(5,6,7,8,9));
+
+console.log("para melhorar isso utiliza o spread operator que também usa ...");
+const multiply = (...args) => args.reduce((acc,value) => acc*value, 1);
+const soma = (...rest) => { return multiply(...rest); };
+console.log (soma(5,6,7,8,9));
+
+console.log("spread operator pode ser usado em strings, arrays, objetos literais e objetos iteraveis");
+console.log("Exemplo de Spread Operator com Strings");
+const str = "Digital Innovation One";
+function logArgs(...args) { console.log(args);	};
+logArgs(...str);
+
+console.log("Exemplo de Spread Operator com Strings");
+const str = "Digital Innovation One";
+function logArgs() { console.log(arguments);	};
+logArgs(...str);
+
+con sole.log("Exemplo de Spread Operator com Arrays");
+const str = "Digital Innovation One";
+const arr = 	[1,2,3,4];
+function logArgs() { console.log(arguments);	};
+logArgs(...arr);
+
+console.log("Outro Exemplo de Spread Operator com Arrays");
+const str = "Digital Innovation One";
+const arr = 	[1,2,3,4];
+function logArgs(a,b,c) { console.log(a,b,c);	};
+logArgs(...arr);
+
+console.log("Exemplo de Método Concat para CONSTRUIR Arrays");
+const str = "Digital Innovation One";
+const arr = 	[1,2,3,4];
+function logArgs(a,b,c) { console.log(a,b,c);	};
+const arr2 = [5,6,7].concat(arr);
+const arr3 = arr.concat([5,6,7]);
+console.log(arr2);
+console.log(arr3);
+
+console.log("Exemplo de Spread Operator para CONSTRUIR Arrays");
+const str = "Digital Innovation One";
+const arr = 	[1,2,3,4];
+function logArgs(a,b,c) { console.log(a,b,c);	};
+const arr2 = [...arr,5,6,7];
+const arr3 = [5,6,7,...arr];
+const arr4 = [...arr2,0,1,...arr3];
+const arr5Clone = [...arr];
+console.log(arr2);
+console.log(arr3);
+console.log(arr4);
+console.log(arr5Clone);
+
+console.log("Exemplo de Spread Operator com Objetos Literais");
+console.log("Somente pode ser usado para construir novos objetos literais");
+const obj1 = { test:123};
+const obj2 =	{ ...obj1, test2:'hello'};
+console.log(obj2);
+
+console.log("Exemplo de Não poder se usar Spread Operator com construção de arrays");
+console.log("usando objetos porque os objetos literais não são iteráveis");
+const obj1 = { test:123};
+const arr1 =	[...obj1];
+console.log(arr1);
+
+console.log("Exemplo de Uso do Spread Operator para concatenar um objeto com outro objeto");
+const obj1 = { test:123};
+const obj2 = {...obj1, test:456} ;
+console.log(obj2);
+
+console.log("Exemplo de Uso do Spread Operator para concatenar um objeto com outro objeto");
+console.log("A mudança da ordem do spread operator dentro do objeto muda o resultado")
+const obj1 = { test:123};
+const obj2 = {test:456, ...obj1 } ;
+console.log(obj2);
+
+console.log("Exemplo de Uso do Spread Operator para concatenar um objeto com outro objeto");
+console.log("A mudança da ordem do spread operator dentro do objeto muda o resultado")
+const obj1 = { test:123};
+const obj2 = {test:456 };
+const objMerged = {...obj1, ...obj2 };
+console.log(objMerged);
+
+
+		</script>
+
+			<h1> Curso12: Desenvolvimento avançado com JavaScript ES6 </h1>
+			<h2> Curso gratuito da DIO: Digital Innovation One </h2>
+			<h2>	Bootcamp: Avanade Angular Developer </h2>
+			<h3>	Aula 05 / 17 : Conheça Rest e Spread Operator
+			<p>	Conclui o estudo de todos os 31min27s
+
+		</body>
+
+	</html>
