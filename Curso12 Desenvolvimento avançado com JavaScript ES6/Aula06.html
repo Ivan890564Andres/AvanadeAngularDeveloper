@@ -1,0 +1,46 @@
+﻿<! DOCTYPE html>
+	<html lang="pt-br">
+
+		<head>
+			<title>	Aula06 Curso12: Como usar Destructuring em ReactJS </title>
+				<meta charset="utf-8">
+		</head>
+
+		<body>
+
+		<script>
+
+
+console.log("Antes de Ecma6 se fazia assim. O que é uma forma muito verbosa");
+var arr= ['maça', 'banana', 'laranja'];
+var maça = arr[0];
+var banana = arr[1];
+var laranja = arr[2];
+
+console.log("Com o Ecma6 usa-se o Destructuring Assignment");
+var arr= ['maça', 'banana', 'laranja'];
+var [maça2, banana2, laranja2] = ['maça', 'banana', 'laranja'];
+console.log(maça, maça2);
+
+console.log("Usando o Destructuring para destruir objetos");
+var obj = { name: 'Ivan'  };
+var {name} = obj;
+console.log(name);
+
+console.log("Usando o Destructuring para destruir funções tendo arrays como parâmetros");
+var arr = [{name: 'maça', type:'fruta'}];
+function soma(arr)
+	{	return arr[0] + arr[1]	}
+console.log(soma([5,5]));
+
+		</script>
+
+			<h1> Curso12: Desenvolvimento avançado com JavaScript ES6 </h1>
+			<h2> Curso gratuito da DIO: Digital Innovation One </h2>
+			<h2>	Bootcamp: Avanade Angular Developer </h2>
+			<h3>	Aula 06 / 17 : Como usar Destructuring em ReactJS
+			<p>	Conclui todo o estudo da aula de 18min50s
+
+		</body>
+
+	</html>
