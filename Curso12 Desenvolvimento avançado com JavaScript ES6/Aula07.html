@@ -1,0 +1,184 @@
+﻿<! DOCTYPE html>
+	<html lang="pt-br">
+
+		<head>
+			<title>	Aula07 Curso12: Symbols e Iterators </title>
+				<meta charset="utf-8">
+		</head>
+
+		<body>
+
+		<script>
+
+
+console.log("Symbols são um tipo novo no Javascript que veio no Ecma6");
+console.log("Symbols são uma maneira de gerar um identificador único");
+console.log("Para chamar um Symbols invocasse como uma função como o modo abaixo");
+// um symbol nunca é igual ao outro. É um identificador único
+const uniqueId = Symbol();
+console.log(uniqueId);
+// produz este resultado no console.log:		Symbol()
+
+console.log("É possível passar um valor dentro do Symbol, o qual serve apenas para Debug");
+console.log("O valor dentro do Symbols serve única e exclusivamente para Debug");
+
+const uniqueId = Symbol('Hello');
+console.log(uniqueId);
+// produz este resultado no console.log:		Symbol(Hello)
+
+console.log("Comparação de dois Symbols com o mesmo parametro mostra que o symbol é diferente");
+console.log("apesar de que os parametros sejam iguais");
+
+const uniqueId = Symbol('Hello');
+const uniqueId2 = Symbol('Hello');
+console.log(uniqueId === uniqueId2);
+// produz este resultado no console.log:		false
+
+console.log("Symbols podem ser usados para passar propriedades privadas: são acessiveis");
+console.log("somente quando ha intenção de acessá-las");
+
+const uniqueId = Symbol('Hello');
+const obj = {[uniqueId]: 'Hello'   };
+console.log(obj);
+// produz este resultado no console.log:		{Symbol(Hello): "Hello"}
+
+console.log("Symbols possuem certas propriedades chamadas de Well Known Symbols");
+console.log("tais como: .iterator, split, toPrimitive, asyncIterator, toStringTag");
+
+const uniqueId = Symbol('Hello');
+const obj = {[Symbol.iterator]() {   };
+console.log(obj);
+// produz este resultado no console.log:		{Symbol(Hello): "Hello"}
+
+console.log("Symbols com Iterator evita a colisão de nomes de propriedades");
+console.log("Iterator é uma interface para consumir passo a passo a sequencia de dados do array ");
+
+const arr = [5, 2, 3, 4];
+const it = arr[Symbol.iterator]();			// construção do iterator
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+// produz este resultado no console.log:		{value: 5, done: false}
+//		 																			{value: 2, done: false}
+//																					{value: 3, done: false}
+//																					{value: 4, done: false}
+//																					{value: undefined, done: true}
+
+const arr = [5, 2, 3, 4];
+const it = arr[Symbol.iterator]();			// construção do iterator
+while(true)
+			{		let {value, done } = it.next();
+					console.log(value);
+					if (done)	{ break;}
+			}
+
+// produz este resultado no console.log: 		5
+//																					2
+//																					3
+//																					4
+//																					undefined
+
+console.log("No Ecma 6 surgiu uma maneira mais simples de fazer o que foi feitono código acima");
+console.log("No Ecma 6 não precisa gerar o iterator: basta usar o for let value of arr");
+const arr = [5, 2, 3, 4];
+for (let value of arr)
+		{		console.log(value);
+		}
+// produz este resultado no console.log: 		5
+//																					2
+//																					3
+//																					4
+
+console.log("No Ecma 6 usando o for let value off com string temos o resultado");
+const str = 'Galicia';
+for (let value of str)
+		{		console.log(value);
+		}
+// produz este resultado no console.log: 		G
+//																					a
+//																					l
+//																					i
+//																					c
+//																					i
+//																					a
+
+console.log("No Ecma 6 usando o Iterator para criar uma função iteradora num objeto");
+console.log("para percorrer uma lista de dados de uma array de values");
+
+const obj = {  	values: [1, 2, 3, 4],
+								[Symbol.iterator] ()
+									{	let i = 0;
+										return { next: () => { 	i++;
+																						return	{	value: this.values[i-1],
+											 																done: i > this.values.length
+																										};
+																					}
+														};
+									}
+						};
+const it = obj[Symbol.iterator]();
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+// produz este resultado no console.log: 		{value: 1, done: false}
+//																					{value: 2, done: false}
+//																					{value: 3, done: false}
+//																					{value: 4, done: false}
+//																					{value: undefined, done: true}
+
+console.log("com isso o objeto se tornou iterável e agora podemos usar o for of como abaixo");
+console.log("e podemos agora fazer uma iteração sobre ele ");
+
+const obj = {  	values: [1, 2, 3, 4],
+								[Symbol.iterator] ()
+									{	let i = 0;
+										return { next: () => { 	i++;
+																						return	{	value: this.values[i-1],
+											 																done: i > this.values.length
+																										};
+																					}
+														};
+									}
+						};
+const it = obj[Symbol.iterator]();
+for (let value of obj) {	console.log(value); }
+
+// produz este resultado no console.log: 			1
+//																						2
+//																						3
+//																						4
+
+console.log("podemos também construir um novo array usando o spread operator");
+console.log("e podemos agora construir um novo array conforme abaixo ");
+
+const obj = {  	values: [1, 2, 3, 4],
+								[Symbol.iterator] ()
+									{	let i = 0;
+										return { next: () => { 	i++;
+																						return	{	value: this.values[i-1],
+											 																done: i > this.values.length
+																										};
+																					}
+														};
+									}
+						};
+const arr2 = [...obj];
+console.log(arr2);
+
+// produz este resultado no console.log: 			(4) [1, 2, 3, 4]
+
+		</script>
+
+			<h1> Curso12: Desenvolvimento avançado com JavaScript ES6 </h1>
+			<h2> Curso gratuito da DIO: Digital Innovation One </h2>
+			<h2>	Bootcamp: Avanade Angular Developer </h2>
+			<h3>	Aula 07 / 17 : Symbols e Iterators
+			<p>	Conclui todo o estudo desta aula no total de 23min44s
+
+		</body>
+
+	</html>
