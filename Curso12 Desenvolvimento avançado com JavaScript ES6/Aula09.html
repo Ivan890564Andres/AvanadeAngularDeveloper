@@ -1,0 +1,500 @@
+﻿<! DOCTYPE html>
+	<html lang="pt-br">
+
+		<head>
+			<title>	Aula09 Curso12: CallBacks e Promises (20m37s) </title>
+				<meta charset="utf-8">
+		</head>
+
+		<body>
+
+		<script>
+/*
+console.log("Temos duas funções do tipo CallBack muito semelhantes e que serão executadas uma após");
+console.log("a outra usando uma 3ª função que chama a execução das 2 anteriores ");
+// abaixo temos callbacks
+function fazAlgo(callback)
+				{		setTimeout ( function()
+							{	// faz alguma coisa
+								callback('First Data');
+							}, 1000 );
+				}
+
+function fazOutroAlgo(callback)
+				{		setTimeout ( function()
+							{	// faz outra coisa
+								callback('Second Data');
+							}, 1000 );
+				}
+
+function fazTudo()
+				{		fazAlgo(function(data)
+						{		var processedData = data.split('');
+								fazOutroAlgo (function(data2)
+								{ var processedData2 = data2.split('');
+									setTimeout(function()
+										{	console.log(processedData, processedData2);
+										}, 1000);
+								});
+						});
+				}
+fazTudo();
+
+/* Exibe o seguinte resultado:
+(10) ["F", "i", "r", "s", "t", " ", "D", "a", "t", "a"]
+(11) ["S", "e", "c", "o", "n", "d", " ", "D", "a", "t", "a"]
+*/
+/*
+console.log("Imagine que os dados não são fornecidos ou tivessemos que fazer algum tipo de tratamento de dados em cada etapa");
+console.log(" vamos implementar esse tratamento de dados com try para tratar erro em cada etapa o que acabará ");
+console.log(" dificultando a leitura e interpretação do código: cenário de callback hell ");
+console.log(" promises é uma biblioteca do Javascript ? antiga e famosa, antes do Ecma6, usada para implementar os promises");
+console.log(" promises são uma maneira de lidar com programação assíncrona de forma mais simples");
+console.log(" Abaixo o codigo é reescrito usando uma promises");
+// abaixo temos Promises usando Ecma6
+
+const fazAlgoPromise = new Promise((resolve, reject) =>
+	{			setTimeout ( function()
+						{		// faz alguma coisa
+								resolve('First Data');
+						}, 	1000 );
+	}	);
+
+const fazOutroAlgoPromise = new Promise((resolve, reject) =>
+	{			setTimeout ( function()
+						{		// faz alguma coisa
+									resolve('Second Data');
+						}, 	1000 );
+	}	);
+
+console.log(fazAlgoPromise);
+
+/* Exibe o seguinte resultado:
+			Promise {<pending>}
+*/
+/*
+console.log("Uma promise pode ter 3 status: Pendente(pending), Toda Executada(Fulfilled) ou Rejeitada(Rejected)");
+console.log(" Pending = está em execução ");
+console.log(" Fulfilled = foi completamente executada e terminou de executar ");
+console.log(" Rejected = aconteceu algum erro durante a tentativa de execução");
+
+const fazAlgoPromise = new Promise((resolve, reject) =>
+	{			//throw new Error('Algo deu errado');
+				setTimeout ( function()
+						{		// faz alguma coisa
+								resolve('First Data');
+						}, 	1000 );
+	}	);
+
+const fazOutroAlgoPromise = new Promise((resolve, reject) =>
+	{			setTimeout ( function()
+						{		// faz alguma coisa
+									resolve('Second Data');
+						}, 	1000 );
+	}	);
+
+fazAlgoPromise.then(data => console.log(data));
+
+/* Exibe o seguinte resultado:
+			First Data
+*/
+/*
+console.log("Uma promise pode ter 3 status: Pendente(pending), Toda Executada(Fulfilled) ou Rejeitada(Rejected)");
+console.log(" Pending = está em execução ");
+console.log(" Fulfilled = foi completamente executada e terminou de executar ");
+console.log(" Rejected = aconteceu algum erro durante a tentativa de execução");
+
+const fazAlgoPromise = new Promise((resolve, reject) =>
+	{			throw new Error('Algo deu errado');
+				setTimeout ( function()
+						{		// faz alguma coisa
+								resolve('First Data');
+						}, 	1000 );
+	}	);
+
+const fazOutroAlgoPromise = new Promise((resolve, reject) =>
+	{			setTimeout ( function()
+						{		// faz alguma coisa
+									resolve('Second Data');
+						}, 	1000 );
+	}	);
+
+fazAlgoPromise.then(data => console.log(data));
+
+/* Exibe o seguinte resultado:
+			Uncaught (in promise) Error: Algo deu errado
+			at Curso12Aula09.html:109
+			at new Promise (<anonymous>)
+			at Curso12Aula09.html:108
+*/
+/*
+console.log("Uma promise pode ter 3 status: Pendente(pending), Toda Executada(Fulfilled) ou Rejeitada(Rejected)");
+console.log(" Pending = está em execução ");
+console.log(" Fulfilled = foi completamente executada e terminou de executar ");
+console.log(" Rejected = aconteceu algum erro durante a tentativa de execução");
+
+const fazAlgoPromise = new Promise((resolve, reject) =>
+	{			throw new Error('Algo deu errado');
+				setTimeout ( function()
+						{		// faz alguma coisa
+								resolve('First Data');
+						}, 	1000 );
+	}	);
+
+const fazOutroAlgoPromise = new Promise((resolve, reject) =>
+	{			setTimeout ( function()
+						{		// faz alguma coisa
+									resolve('Second Data');
+						}, 	1000 );
+	}	);
+
+fazAlgoPromise
+	.then(data => console.log(data))
+	.catch(error => console.log(error));
+
+/* Exibe o seguinte resultado:
+		Error: Algo deu errado
+    	at Curso12Aula09.html:137
+    	at new Promise (<anonymous>)
+    	at Curso12Aula09.html:136
+*/
+/*
+
+console.log("Promises permitem ser encadeadas uma na outra como no metodo .then abaixo");
+
+const fazAlgoPromise = new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+								resolve('First Data');
+						}, 	1000 );
+	}	);
+
+const fazOutroAlgoPromise = new Promise((resolve, reject) =>
+	{			setTimeout ( function()
+						{		// faz alguma coisa
+									resolve('Second Data');
+						}, 	1000 );
+	}	);
+
+fazAlgoPromise
+	.then(data => fazOutroAlgoPromise)
+	.then(data2 => console.log(data2))
+	.catch();
+
+/* Exibe o seguinte resultado:
+		Second Data
+*/
+/*
+console.log("em seguida mostra como executar os promises um após o outro");
+
+const fazAlgoPromise = new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+								resolve('First Data');
+						}, 	1000 );
+	}	);
+
+const fazOutroAlgoPromise = new Promise((resolve, reject) =>
+	{			setTimeout ( function()
+						{		// faz alguma coisa
+									resolve('Second Data');
+						}, 	1000 );
+	}	);
+
+fazAlgoPromise
+	.then(data => { console.log(data) ; return fazOutroAlgoPromise;})
+	.then(data2 => console.log(data2))
+	.catch();
+
+/* Exibe o seguinte resultado:
+		First Data
+ 		Second Data
+*/
+/*
+
+console.log("para fazer uma função que gere essas promisses faz-se o seguinte ");
+
+const fazAlgoPromise = () => new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+								resolve('First Data');
+						}, 	1000 );
+	}	);
+
+const fazOutroAlgoPromise = () => new Promise((resolve, reject) =>
+	{			setTimeout ( function()
+						{		// faz alguma coisa
+									resolve('Second Data');
+						}, 	1000 );
+	}	);
+
+fazAlgoPromise()
+	.then(data => { console.log(data) ; return fazOutroAlgoPromise();})
+	.then(data2 => console.log(data2))
+	.catch();
+
+/* Exibe o seguinte resultado:
+		First Data  // demoram alguns milissegundos para executar a linha abaixo
+ 		Second Data
+*/
+/*
+
+console.log("inserindo um tratamento de erro no código anterior");
+console.log("o primeiro foi executado até o fim e o segundo deu erro");
+
+const fazAlgoPromise = () => new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+								resolve('First Data');
+						}, 	1000 );
+	}	);
+
+const fazOutroAlgoPromise = () => new Promise((resolve, reject) =>
+	{			throw new Error("Alguma coisa está errada");
+				setTimeout ( function()
+						{		// faz alguma coisa
+									resolve('Second Data');
+						}, 	1000 );
+	}	);
+
+fazAlgoPromise()
+	.then(data => { console.log(data) ; return fazOutroAlgoPromise();})
+	.then(data2 => console.log(data2))
+	.catch(error => console.log('ooppss', error));
+
+/* Exibe o seguinte resultado:
+		First Data
+		ooppss Error: Alguma coisa está errada
+		at Curso12Aula09.html:256
+		at new Promise (<anonymous>)
+		at fazOutroAlgoPromise (Curso12Aula09.html:255)
+		at Curso12Aula09.html:264
+*/
+/*
+console.log("inserindo um tratamento de erro no primeiro promise e retirando do segundo do código anterior");
+console.log("acontece o seguinte: se der erro no primeiro o segundo não será executado como mostrado abaixo");
+console.log("e ambos foram tratados pelo catch. Com isso conseguimos reduzir o tamanho do código para tratar os erros do código");
+
+const fazAlgoPromise = () => new Promise((resolve, reject) =>
+	{			throw new Error("Alguma coisa está errada");
+				setTimeout ( function()
+						{		// faz alguma coisa
+								resolve('First Data');
+						}, 	1000 );
+	}	);
+
+const fazOutroAlgoPromise = () => new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+									resolve('Second Data');
+						}, 	1000 );
+	}	);
+
+fazAlgoPromise()
+	.then(data => { console.log(data) ; return fazOutroAlgoPromise();})
+	.then(data2 => console.log(data2))
+	.catch(error => console.log('ooppss', error));
+
+/* Exibe o seguinte resultado:
+		ooppss Error: Alguma coisa está errada
+    at Curso12Aula09.html:283
+    at new Promise (<anonymous>)
+    at fazAlgoPromise (Curso12Aula09.html:282)
+    at Curso12Aula09.html:298
+*/
+/*
+console.log("acrescentando um split em console.log(data.split('') e retiramos o catch do 3º promise");
+console.log("retirando o throw new Error do primeiro promise");
+
+const fazAlgoPromise = () => new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+								resolve('First Data');
+						}, 	1000 );
+	}	);
+
+const fazOutroAlgoPromise = () => new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+									resolve('Second Data');
+						}, 	1000 );
+	}	);
+
+fazAlgoPromise()
+	.then(data => { console.log(data.split('')) ;
+			return fazOutroAlgoPromise();		})
+	.then(data2 => console.log(data2.split('')));
+
+/* Exibe o seguinte resultado:
+(10) ["F", "i", "r", "s", "t", " ", "D", "a", "t", "a"]
+(11) ["S", "e", "c", "o", "n", "d", " ", "D", "a", "t", "a"]
+*/
+/*
+console.log("acrescentando um tratamento de erros no 3º promise no final do código usando o catch(error)");
+console.log("obtemos o mesmo resultado com tratamento de erro e código enxuto e mais fácil de rever, analisar e dar manutenção no código na programação assíncrona");
+
+const fazAlgoPromise = () => new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+								resolve('First Data');
+						}, 	1000 );
+	}	);
+
+const fazOutroAlgoPromise = () => new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+									resolve('Second Data');
+						}, 	1000 );
+	}	);
+
+fazAlgoPromise()
+	.then(data => { console.log(data.split(''));
+			return fazOutroAlgoPromise();		})
+	.then(data2 => console.log(data2.split('')))
+	.catch(error => console.log("OOOppppsss !!!", error));
+
+/* Exibe o seguinte resultado:
+		(10) ["F", "i", "r", "s", "t", " ", "D", "a", "t", "a"]
+		(11) ["S", "e", "c", "o", "n", "d", " ", "D", "a", "t", "a"]
+*/
+/*
+console.log("até agora as promises foram todas executadas de maneira sequencial");
+console.log("mas podemos executá-las em paralelo usando o método promise.all");
+
+const fazAlgoPromise = () => new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+								resolve('First Data');
+						}, 	1000 );
+	}	);
+
+const fazOutroAlgoPromise = () => new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+									resolve('Second Data');
+						}, 	1000 );
+	}	);
+
+Promise.all([fazAlgoPromise(),fazOutroAlgoPromise()]).then((data) => {
+	console.log(data);
+})
+
+/* Exibe o seguinte resultado:
+		(2) ["First Data", "Second Data"]
+*/
+/*
+
+console.log("para obter o mesmo resultado anterior e executando as promises em paralelo ");
+console.log("fazemos as seguintes alterações no código");
+
+const fazAlgoPromise = () => new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+								resolve('First Data');
+						}, 	1000 );
+	}	);
+
+const fazOutroAlgoPromise = () => new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+									resolve('Second Data');
+						}, 	1000 );
+	}	);
+
+Promise.all([fazAlgoPromise(),fazOutroAlgoPromise()]).then((data) => {
+	console.log(data[0].split(''));
+	console.log(data[1].split(''));
+})
+
+/* Exibe o seguinte resultado:
+			(10) ["F", "i", "r", "s", "t", " ", "D", "a", "t", "a"]
+			(11) ["S", "e", "c", "o", "n", "d", " ", "D", "a", "t", "a"]
+*/
+/*
+console.log("para fazermos um tratamento de erros");
+console.log("fazemos as seguintes alterações no código: acrescentando o catch error ");
+
+const fazAlgoPromise = () => new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+								resolve('First Data');
+						}, 	1000 );
+	}	);
+
+const fazOutroAlgoPromise = () => new Promise((resolve, reject) =>
+	{			throw new Error('OOOppppsss');
+				setTimeout ( function()
+						{		// faz alguma coisa
+									resolve('Second Data');
+						}, 	1000 );
+	}	);
+
+Promise.all([fazAlgoPromise(),fazOutroAlgoPromise()]).then((data) => {
+	console.log(data[0].split(''));
+	console.log(data[1].split(''));
+}).catch(err => {
+		console.log(err)
+} );
+
+/* Exibe o seguinte resultado:
+			Error: OOOppppsss
+			at Curso12Aula09.html:439
+			at new Promise (<anonymous>)
+			at fazOutroAlgoPromise (Curso12Aula09.html:438)
+			at Curso12Aula09.html:446
+*/
+
+console.log("uma outra forma de lidar com multiplas promises mas desta vez, a promise que for 1º resolvida é a que será executada é utilizando o método race ");
+console.log("conforme fazemos as alterações no código abaixo : acrescentando o .race na promise final ");
+console.log("FOI ABORDADO O ASSUNTO PROGRAMAÇÃO ASSINCRONA COM TRATAMENTO DE DADOS NO ECMA6");
+
+const fazAlgoPromise = () => new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+								resolve('First Data');
+						}, 	1500 ); //alterou o tempo aqui em + 500
+	}	);
+
+const fazOutroAlgoPromise = () => new Promise((resolve, reject) =>
+	{
+				setTimeout ( function()
+						{		// faz alguma coisa
+									resolve('Second Data');
+						}, 	1000 );
+	}	);
+
+Promise.race([fazAlgoPromise(),fazOutroAlgoPromise()]).then(data => {
+		console.log(data);
+});
+
+/* Exibe o seguinte resultado:
+		Second Data
+*/
+
+
+		</script>
+
+			<h1> Curso12: Desenvolvimento avançado com JavaScript ES6 </h1>
+			<h2> Curso gratuito da DIO: Digital Innovation One </h2>
+			<h2>	Bootcamp: Avanade Angular Developer </h2>
+			<h3>	Aula 09 / 17 : CallBacks e Promises (20m37s)
+			<p>	Conclui todo o estudo desta aula no total de 20min37s
+
+		</body>
+
+	</html>
