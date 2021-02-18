@@ -1,0 +1,328 @@
+﻿<! DOCTYPE html>
+	<html lang="pt-br">
+
+		<head>
+			<title>	Aula10 Curso12: Fetch, Async/Await e EventEmitter (19m09s) </title>
+				<meta charset="utf-8">
+		</head>
+
+		<body>
+
+		<script>
+/*
+console.log("Para fazer requisições (Xml, Json, APIs, Files) era utilizada uma API do browser chamada XML HtpRequest");
+console.log("Como lidar com Callbacks pode ser complexo e levar a um CallBack Hell, foi inventada uma nova API chamada Fetch");
+console.log("A API Fetch faz requisições usando Promises como no exemplo abaixo, no qual se faz uma chamada para o LocalHost");
+
+fetch ('http://localhost:/data.json').then(responseStream => {
+			console.log(responseStream);
+})
+
+/*	Exibe o seguinte resultado: //Obs.: o resultado abaixo não é igual ao do instrutor pois ele não conseguiu acessar o enderco http
+		GET http://localhost/data.json net::ERR_CONNECTION_REFUSED
+		Uncaught (in promise) TypeError: Failed to fetch
+*/
+/*
+console.log("Para obter os dados desse Json devemos transformar o Stream conforme abaixo ");
+
+fetch ('http://localhost:8080/data.json').then(responseStream => {
+			return responseStream.json().then(data => {
+				console.log(data);
+			}) ;
+});
+
+/*	Exibe o seguinte resultado: //Obs.: o resultado abaixo não é igual ao do instrutor pois ele não conseguiu acessar o enderco http
+		GET http://localhost/data.json net::ERR_CONNECTION_REFUSED
+		Uncaught (in promise) TypeError: Failed to fetch
+*/
+/*
+
+console.log("Outra forma de fazer amesma coisa do código anterior é a seguinte");
+fetch ('http://localhost:8080/data.json').then(responseStream => responseStream.json())
+	.then(data => {
+				console.log(data);
+			}) ;
+// Deveria exibir o mesmo resultado do código anterior
+
+/*	Exibe o seguinte resultado: //Obs.: o resultado abaixo não é igual ao do instrutor pois ele não conseguiu acessar o enderco http
+		GET http://localhost/data.json net::ERR_CONNECTION_REFUSED
+		Uncaught (in promise) TypeError: Failed to fetch
+*/
+/*
+console.log("Se houver somente um erro de rede usaremos o catch abaixo para pegar esse erro");
+
+fetch ('http://localhost:8080/data.json')
+	.then(responseStream => responseStream.json())
+		.then(data => {
+					console.log(data);
+									}
+					).catch(err => {
+						console.log('Erro: ', err);
+					});
+
+/*	Exibe o seguinte resultado: //Obs.: o resultado abaixo não é igual ao do instrutor pois ele não conseguiu acessar o enderco http
+		GET http://localhost:8080/data.json net::ERR_CONNECTION_REFUSED
+		Erro:  TypeError: Failed to fetch
+*/
+/*
+console.log("Muda para um nome de arquivo inexistente no localhost correto");
+
+fetch ('http://localhost:8080/dataXPT.json')
+	.then(responseStream => responseStream.json())
+		.then(data => {
+					console.log(data);
+									}
+					).catch(err => {
+						console.log('Erro: ', err);
+					});
+
+/*	Exibe o seguinte resultado: //Obs.: o resultado abaixo não é igual ao do instrutor pois ele não conseguiu acessar o enderco http
+		GET http://localhost:8080/data.json net::ERR_CONNECTION_REFUSED
+		Erro:  TypeError: Failed to fetch
+*/
+/*
+console.log("Neste caso somente passa se for 200");
+
+fetch ('http://localhost:8080/dataXPT.json')
+	.then(responseStream => {
+		if (responseStream.status === 200) {
+		return responseStream.json();
+	} else  {throw new Error('Request error');
+	}
+	})
+	.then(data => {
+					console.log(data);
+					})
+					.catch(err => {
+						console.log('Error: ', err);
+					});
+
+/*	Exibe o seguinte resultado: //Obs.: o resultado abaixo não é igual ao do instrutor pois ele não conseguiu acessar o enderco http
+		GET http://localhost:8080/data.json net::ERR_CONNECTION_REFUSED
+		Erro:  TypeError: Failed to fetch
+*/
+/*
+console.log("Caso queiramos fazer algo diferente de um GET o fetch permite acrescentar um segundo parâmetro");
+console.log("o qual deve ser um objeto no qual podemos manadar métodos: post, headers, body, etc  ");
+console.log("por defaulto parametro do fetch é o GET");
+console.log("Este código finaliza a arte do fetch");
+
+fetch ('http://localhost:8080/dataXPT.json', {
+		method: 'post',
+		//headers:
+		//body: JSON stringify,
+})
+	.then(responseStream => {
+		if (responseStream.status === 200) {
+		return responseStream.json();
+	} else  {throw new Error('Request error');
+	}
+	})
+	.then(data => {
+					console.log(data);
+					})
+					.catch(err => {
+						console.log('Error: ', err);
+					});
+
+/*	Exibe o seguinte resultado: //Obs.: o resultado abaixo não é igual ao do instrutor pois ele não conseguiu acessar o enderco http
+		GET http://localhost:8080/data.json net::ERR_CONNECTION_REFUSED
+		Erro:  TypeError: Failed to fetch
+*/
+/*
+console.log("A partir do ES7 surgiu o Async / Await  ");
+console.log("o qual é uma forma de criar promises de maneira mais simples e lidar com outras promises ");
+console.log("dentro de promises de maneira bem enxuta. Foi inspirado em outras linguagens de programação");
+console.log("a seguir é dado um exemplo de Async/Await");
+
+const simpleFunc = async() => {
+	return 12345;
+};
+console.log(simpleFunc);
+
+/*	Exibe o seguinte resultado:
+		async() => 	{
+										return 12345;
+								}
+*/
+/*
+console.log("Faltou invocar a função no código acima");
+console.log("a seguir invocamos a função simpleFunc usando () e o resultado final muda conforme a seguir:");
+
+const simpleFunc = async() => {
+	return 12345;
+};
+console.log(simpleFunc());
+
+/*	Exibe o seguinte resultado:
+		Promise {<fulfilled>: 12345}
+*/
+/*
+console.log("Faltou invocar a função no código acima");
+console.log("a seguir invocamos a função simpleFunc usando () e o resultado final muda conforme a seguir:");
+
+const simpleFunc = async() => {
+	// o uso da palavra async transformou a função numa promise
+	return 12345;
+};
+console.log(simpleFunc());
+
+/*	Exibe o seguinte resultado:
+		Promise {<fulfilled>: 12345}
+*/
+/*
+console.log("Para receber o retorno da função usamos o then ");
+console.log("conforme o exemplo abaixo:");
+
+const simpleFunc = async() => {
+	// o uso da palavra async transformou a função numa promise
+	return 12345;
+};
+simpleFunc().then(data => {
+console.log(data);
+});
+
+/*	Exibe o seguinte resultado:
+			12345
+*/
+/*
+console.log("Para tratar os erros usa-se throw e catch err");
+console.log("conforme o exemplo abaixo:");
+
+const simpleFunc = async() => {
+	// o uso da palavra async transformou a função numa promise
+	throw new Error('Ohh! NNãão.... !!!!');
+	return 12345;
+};
+simpleFunc().then(data => {
+console.log(data);
+}).catch(err => {
+		console.log(err);
+} );
+
+/*	Exibe o seguinte resultado:
+			Error: Ohh! NNãão.... !!!!
+			at simpleFunc (Curso12Aula10.html:194)
+			at Curso12Aula10.html:197
+*/
+/*
+console.log("Async não costuma ser usada sozinha, normalmente ela aparece junto com o Await");
+console.log("o Await espera que outras promises sejam resolvidas ");
+console.log("Sempre que temos outras promises que precisemos aguardar que sejam resolvidas usamos o await ");
+console.log("desse modo, estamos lidando com coisas assincronas de forma sequencial");
+
+const asyncTimer = () => new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve(12345);
+			}, 1000);
+});
+
+const simpleFunc = async() => {
+	// o uso da palavra async transformou a função numa promise
+	const data = await asyncTimer();
+	return data;
+};
+simpleFunc().then(data => {
+console.log(data);
+}).catch(err => {
+		console.log(err);
+} );
+
+/*	Exibe o seguinte resultado:
+			12345
+*/
+
+/*
+console.log("Async não costuma ser usada sozinha, normalmente ela aparece junto com o Await");
+console.log("o Await espera que outras promises sejam resolvidas ");
+console.log("Sempre que temos outras promises que precisemos aguardar que sejam resolvidas usamos o await ");
+console.log("desse modo, estamos lidando com coisas assincronas de forma sequencial");
+
+const asyncTimer = () => new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve(12345);
+			}, 1000);
+});
+
+const simpleFunc = async() => {
+	// o uso da palavra async transformou a função numa promise
+	const data = await asyncTimer();
+	console.log(data);
+	const dataJSON = await fetch('/data.json').then(resStream => resStream.json());
+	return dataJSON;
+};
+simpleFunc().then(data => {
+console.log(data);
+}).catch(err => {
+		console.log(err);
+} );
+
+/*	Exibe o seguinte resultado:
+		// não deu o mesmo resultado do instrutor pois data.json não está configurado em meu computador
+*/
+
+/*
+console.log("o await é utilizado sempre que queremos aguardar que uma promise seja resolvidas");
+console.log("desse modo, teremos um processamento assincrono de forma sequencial");
+
+const asyncTimer = () => new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve(12345);
+			}, 1000);
+});
+
+const simpleFunc = async() => {
+	// o uso da palavra async transformou a função numa promise
+	const data = await asyncTimer();
+	const dataJSON = await fetch('/data.json').then(resStream => resStream.json());
+	return dataJSON;
+};
+simpleFunc().then(data => {
+console.log(data);
+}).catch(err => {
+		console.log(err);
+} );
+
+/*	Exibe o seguinte resultado:
+		// não deu o mesmo resultado do instrutor pois data.json não está configurado em meu computador
+*/
+
+
+console.log("Para realizar o processamento de forma paralela usamos o Promise all");
+console.log("conforme mostrado nocódigo abaixo");
+
+const asyncTimer = () => new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve(12345);
+			}, 1000);
+});
+
+const simpleFunc = async() => {
+	// o uso da palavra async transformou a função numa promise
+	const data = await Promise.all([
+		asyncTimer(),
+		fetch('/data.json').
+	then(resStream => resStream.json()		)]);
+	return data;
+};
+simpleFunc().then(data => {
+console.log(data);
+}).catch(err => {
+		console.log(err);
+} );
+
+/*	Exibe o seguinte resultado:
+		// não deu o mesmo resultado do instrutor pois data.json não está configurado em meu computador
+*/
+
+		</script>
+
+			<h1> Curso12: Desenvolvimento avançado com JavaScript ES6 </h1>
+			<h2> Curso gratuito da DIO: Digital Innovation One </h2>
+			<h2>	Bootcamp: Avanade Angular Developer </h2>
+			<h3>	Aula 10 / 17 : Fetch, Async/Await e EventEmitter (19m09s)
+			<p>	Concluí todo o estudo desta aula no total de 19min09s
+
+		</body>
+
+	</html>
