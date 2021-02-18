@@ -1,0 +1,137 @@
+﻿<! DOCTYPE html>
+	<html lang="pt-br">
+
+		<head>
+			<title>	Aula08 Curso12: Aprenda sobre Generators e onde utilizá-los (11m32s) </title>
+				<meta charset="utf-8">
+		</head>
+
+		<body>
+
+		<script>
+
+
+console.log("Generators são funções com pausa que despausam e retornam valores através de uma ");
+console.log("interface de interação como foi feita na aula anterior usando Symbol.iterator num ");
+console.log("objeto. Nesta aula dará um exemplo através de uma função simples como abaixo");
+
+function hello	()
+				{		console.log('Hello ');
+						console.log('From ');
+						console.log('Function ');
+				}
+hello();
+Exibe o seguinte resultado: 	Hello
+															From
+															Function
+
+console.log("Faremos uma modificação na função acima introduzindo uma pausa intermediária");
+console.log("entre cada uma das 3 palavras acima para retorno de outro valor. Fazer isso com funções");
+console.log("não seria nada fácil e nem satisfatório. Faremos isso de modo mais fácil e eficaz");
+console.log(" usando generators como abaixo");
+
+function* hello	()
+				{		console.log('Hello ');
+						yield;		// este comando define a pausa da function
+						console.log('From ');
+						yield;
+						console.log('Function ');
+				}
+const it = hello();
+console.log(it.next());
+console.log(it.next());
+
+Exibe o seguinte resultado:		Hello
+																{value: undefined, done: false}
+																From
+																{value: undefined, done: false}
+
+console.log("Outra mudança para passar um valor através do comando yield");
+console.log("que passa para a propriedade value como mostrado abaixo");
+
+function* hello	()
+				{		console.log('Hello ');
+						yield 1;		// este comando define a pausa da function
+						console.log('From ');
+						yield 2;
+						console.log('Function ');
+				}
+const it = hello();
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+
+Exibe o seguinte resultado:		Hello
+																{value: 1, done: false}
+																From
+																{value: 2, done: false}
+																Function
+																{value: undefined, done: true}
+
+console.log("Outra mudança para passar um valor externo à função pelo yield");
+console.log("que passa para a propriedade value como mostrado abaixo");
+console.log("é uma ferramenta poderosa para controlar o fluxo da função");
+function* hello	()
+				{		console.log('Hello ');
+						yield 1;		// este comando define a pausa da function
+						console.log('From ');
+						const value = yield 2;
+						console.log(value);
+				}
+const it = hello();
+console.log(it.next());
+console.log(it.next());
+console.log(it.next('Outside !'));
+
+Exibe o seguinte resultado:		Hello
+																{value: 1, done: false}
+																From
+																{value: 2, done: false}
+																Outside !
+																{value: undefined, done: true}
+
+console.log("outro exemplo ");
+function* naturalNumbers	()
+				{		let number = 0;
+						while (true) 	{		yield number;
+															number++;
+													}
+				}
+const it = naturalNumbers();
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+
+/*Exibe o seguinte resultado:		{value: 0, done: false}
+																{value: 1, done: false}
+																{value: 2, done: false}
+*/
+
+const obj = {		values:[1, 2, 3, 4],
+								*[Symbol.iterator]()
+									{		for (var i=0; i < this.values.length; i++)
+											{		yield this.values[i]; }
+									}
+						};
+for (let value of obj)
+		{		console.log(value);
+		}
+/*Exibe o seguinte resultado:		1
+																2
+																3
+																4
+*/
+
+
+
+		</script>
+
+			<h1> Curso12: Desenvolvimento avançado com JavaScript ES6 </h1>
+			<h2> Curso gratuito da DIO: Digital Innovation One </h2>
+			<h2>	Bootcamp: Avanade Angular Developer </h2>
+			<h3>	Aula 08 / 17 : Aprenda sobre Generators e onde utilizá-los (11m32s)
+			<p>	Conclui todo o estudo desta aula no total de 11min32s
+
+		</body>
+
+	</html>
