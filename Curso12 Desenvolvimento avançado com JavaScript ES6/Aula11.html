@@ -1,0 +1,89 @@
+﻿<! DOCTYPE html>
+	<html lang="pt-br">
+
+		<head>
+			<title>	Aula11 Curso12: Aplicando e praticando os conceitos (07m05s) </title>
+				<meta charset="utf-8">
+		</head>
+
+		<body>
+		<script>
+
+/*
+console.log("EventEmitter  ");
+
+const EventEmitter = require('events');
+const emitter = new EventEmitter();
+emitter.on('Usuário Logado', data => {
+		console.log(data);
+});
+emitter.emit('Usuário logado', {user: 'Celso Henrique'});
+
+/*Exibe o seguinte resultado:
+			EventEmitter
+ 			Uncaught ReferenceError: require is not defined
+    	at Curso12Aula11.html:14
+*/
+/*
+console.log("EventEmitter com uma classe de usuário  ");
+
+const EventEmitter = require('events');
+
+class Users extends EventEmitter {
+	userLogged(data) {
+		this.emit('Usuário Logado', data );
+	}
+}
+
+const users = new Users ();
+
+users.on('Usuário Logado', data => {
+		console.log(data);
+});
+
+users.userLogged({user:'Celso Henrique'});
+
+/*Exibe o seguinte resultado:
+		Uncaught ReferenceError: require is not defined
+    at Curso12Aula11.html:30
+*/
+/*
+console.log("Para consumir apenas uma vez usamos o metodo once em users");
+
+const EventEmitter = require('events');
+
+class Users extends EventEmitter {
+	userLogged(data) {
+		this.emit('Usuário Logado', data );
+	}
+}
+
+const users = new Users ();
+
+users.once('Usuário Logado', data => {
+		console.log(data);
+});
+
+users.userLogged({user:'Celso Henrique'});
+users.userLogged({user:'Daniel Doirique'});// vai logar apenas o primeiro nome
+// se usassemos o metodo users.on teria logado os dois
+/*Exibe o seguinte resultado:
+		Uncaught ReferenceError: require is not defined
+    at Curso12Aula11.html:30
+*/
+
+console.log("Event Target pode ser usado no browser usando a API EventListener");
+console.log("Não fornece exemplos deste recurso, apenas faz alguns comentários");
+
+
+		</script>
+
+			<h1> Curso12: Desenvolvimento avançado com JavaScript ES6 </h1>
+			<h2> Curso gratuito da DIO: Digital Innovation One </h2>
+			<h2>	Bootcamp: Avanade Angular Developer </h2>
+			<h3>	Aula 11 / 17 : Aplicando e praticando os conceitos (07m05s)
+			<p>	Concluí todo o estudo desta aula no total de 07min05s
+
+		</body>
+
+	</html>
